@@ -86,7 +86,7 @@ int main() {
   int dotw = t % 7;
   // Print out the weekday from
   // weekdays array
-  cout << weekdays[dotw];
+  cout << weekdays[dotw] << endl;
 
   return 0;
 }
