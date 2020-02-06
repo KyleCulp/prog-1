@@ -9,12 +9,10 @@
 #include <iomanip> 
 using namespace std;
 
-int main() {
-  int bankCode, codeArr[9], productArr[9], sum;
-  cout << "Enter the bank code: ";
-  cin >> bankCode;
+int bankCode, codeArr[9], productArr[9], sum;
 
-  // Loop through length of bankCode's digits
+// Loop through length of bankCode's digits
+void getDigits() {
   for(int i=0; i < 9; i++)  { 
     // Set digit into array
     codeArr[8 - i] = bankCode % 10;
@@ -22,17 +20,9 @@ int main() {
     // Reduce bankCode by one digit
     bankCode = bankCode / 10;
   }
+}
 
-
-  // Print Bank Number one digit at a time
-  for(int i=0; i < 9; i++) {
-    cout << setw(4) << codeArr[i];
-  }
-
-  // New line
-  cout << endl;
-
-  // Print Multipliers
+void printMultipliers() {
   for(int i=0; i < 8; i++) {
     // Multipliers are 7, 3, 9 respectively
     // Repeating in that order until done
@@ -44,9 +34,26 @@ int main() {
       cout << setw(4) << 9;
     }
   }
+  
+  cout << endl;
+}
+
+int main() {
+  cout << "Enter the bank code: ";
+  cin >> bankCode;
+
+  getDigits();
+
+  // Print Bank Number one digit at a time
+  for(int i=0; i < 9; i++) {
+    cout << setw(4) << codeArr[i];
+  }
 
   // New line
   cout << endl;
+
+  // Print Multipliers
+  printMultipliers();
 
   // Multiply, save & print out product
   for(int i=0; i < 8; i++) {
