@@ -70,13 +70,28 @@ void printFirstEight(double principal, double yir, double years) {
 }
 
 void printTable(double principal, double yir, double years) {
-  cout << setprecision(2) << fixed;
+  string dashBar = " ------------------------------------------------------------------------- ";
   double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
 
+  cout << setprecision(2) << fixed;
 
-  cout << " ------------------------------------------------------------------------------";
-  cout << "\n|  Principal " << principal << "    Interest Rate " <<  yir << "     Years " << years << "     Payment " << monthlyPayment << " |";
-  cout << "\n|                                                                              |";
+
+  // Top table info
+  cout << dashBar << endl;
+  cout << setw(1) << "|";
+  cout << setw(12) << "Principal " << principal;
+  cout << setw(16) << "Interest Rate " << yir;
+  cout << setw(8) << "Years " << years;
+  cout << setw(12) << "Payment " << monthlyPayment;
+  cout << setw(3) << "|" << endl;
+  cout << setw(1) << "|"; 
+  cout << setw(74) << "|";
+
+  // Table Headers
+  cout << setw(1) << "|";
+  
+
+
 
   cout << "\n|  Month    Pay        Total       Monthly     Principal   Total    Reamining  |";
   cout << "\n|                       Paid       Interest       Paid    Principal   Balance  |";
@@ -85,22 +100,19 @@ void printTable(double principal, double yir, double years) {
   cout << "\n|                                                                              |\n";
   printFirstEight(principal, yir, years);
   cout << "|    -         -           -             -           -         -          -    |\n";
-  printLastEight(principal, yir, years);
+  // printLastEight(principal, yir, years);
   cout << " ------------------------------------------------------------------------------";
 }
 
 int main() {
-  double principal, yir, years;
+  double principal = 70000, yir = 9.5, years = 30;
 
-  cout << "Please enter the Principal: ";
-  cin >> principal;
-  cout << "Please enter the Yearly Interest Rate, in decimal format: ";
-  cin >> yir;
-  cout << "Please enter the loan length, in years: ";
-  cin >> years;
-
-  double monthlyPayment = calculate(principal, yir, years);
-
+  // cout << "Please enter the Principal: ";
+  // cin >> principal;
+  // cout << "Please enter the Yearly Interest Rate, in decimal format: ";
+  // cin >> yir;
+  // cout << "Please enter the loan length, in years: ";
+  // cin >> years;
 
   printTable(principal, yir, years);
 }
