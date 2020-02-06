@@ -22,16 +22,14 @@ using namespace std;
 */ 
 
 double calculateMonthlyPayment(double principal, double yir, double years) {
-  // Get monthly interest rate 
+  // Monthly interest rate
   double mir = yir / 1200;
-
-  // Exponent to send to pow function 
-  double exponent = 12 * years;
 
   double bottomHalf = mir + 1;
   bottomHalf = 1 / bottomHalf;
-  bottomHalf = pow(bottomHalf, exponent);
+  bottomHalf = pow(bottomHalf, 12 * years);
   bottomHalf = 1 - bottomHalf;
+
   double topHalf = principal * mir;
 
   return topHalf / bottomHalf;
@@ -54,4 +52,3 @@ int main() {
 
   return 0;
 }
-
