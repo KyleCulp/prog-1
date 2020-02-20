@@ -47,6 +47,8 @@ void printFirstEight(double principal, double yir, double years) {
   double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
   double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
 
+  // Calculate each column, looping
+  // eight times in total
   for(int i=1; i<=8; i++) {
     totalPaid += monthlyPayment;
     monthlyInterest = getMonthlyInterest(remainingBalance, yir);
@@ -72,6 +74,9 @@ void printLastEight(double principal, double yir, double years) {
   double totalPaid, monthlyInterest, principalPaid;
   double totalPrincipalPaid, remainingBalance = principal;
 
+  // Same script as first eight except
+  // no output and it doesnt finish the last
+  // eight months
   for(int i=1; i<=(years * 12) - 8; i++) {
     totalPaid += monthlyPayment;
     monthlyInterest = getMonthlyInterest(remainingBalance, yir);
@@ -81,7 +86,8 @@ void printLastEight(double principal, double yir, double years) {
   }
 
 
-  // Same thing as printTopHalf's loop, except we're starting where the loop above ended
+  // Finish calculating last eight months
+  // printing out the data on each loop
   for(int i=(years * 12) - 7; i<=years * 12; i++) {
     totalPaid += monthlyPayment;
     monthlyInterest = getMonthlyInterest(remainingBalance, yir);
@@ -115,6 +121,7 @@ void printTable(double principal, double yir, double years) {
   cout << "\n|                                                           Paid               |";
 
   cout << "\n|                                                                              |\n";
+  
   // Print first eight months of payments 
   printFirstEight(principal, yir, years);
   cout << "|    -         -           -             -           -         -          -    |\n";
