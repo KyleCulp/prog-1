@@ -121,14 +121,14 @@ void printTable(double principal, double yir, double years) {
   cout << "\n|                                                           Paid               |";
 
   cout << "\n|                                                                              |\n";
-  
+
   // Print first eight months of payments 
   printFirstEight(principal, yir, years);
   cout << "|    -         -           -             -           -         -          -    |\n";
 
   // Print last eight months of payments
   printLastEight(principal, yir, years);
-  cout << " ------------------------------------------------------------------------------";
+  cout << " ------------------------------------------------------------------------------" << endl;
 }
 
 int main() {
