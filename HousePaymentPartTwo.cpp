@@ -1,3 +1,4 @@
+  
 // Kyle Culp
 // Programming 1
 // Due: 2/13/2020
@@ -25,24 +26,25 @@ double calculateMonthlyPayment(double principal, double yir, double years) {
   // Monthly interest rate
   double mir = yir / 1200;
 
+  // Top half of equation
+  double topHalf = principal * mir;
+
+  // Bottom half of equation
   double bottomHalf = mir + 1;
   bottomHalf = 1 / bottomHalf;
   bottomHalf = pow(bottomHalf, 12 * years);
   bottomHalf = 1 - bottomHalf;
 
-  double topHalf = principal * mir;
-
   return topHalf / bottomHalf;
 }
 
-// quick function to handle yir -> mir, then multiply against remaining balance
 double getMonthlyInterest(double remainingBalance, double yir) {
   return remainingBalance * (yir / 1200);
 }
 
 // Print first eight months of the payment plan to table
 void printFirstEight(double principal, double yir, double years) {
-  double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
+  double monthlyPayment = calculate(principal, yir, years);
   double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
 
   // All numbers get cut off after 2 decimals, rounded up
@@ -69,63 +71,76 @@ void printFirstEight(double principal, double yir, double years) {
   }
 }
 
-void printTable(double principal, double yir, double years) {
-  string dashBar = " ------------------------------------------------------------------------- ";
-  double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
+// Print last eight months of the payment plan to table
+void printLastEight(double principal, double yir, double years) {
+  double monthlyPayment = calculate(principal, yir, years);
+  double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
 
   cout << setprecision(2) << fixed;
-
-
-  // Top table info
-  cout << dashBar << endl;
-  cout << setw(1) << "|";
-  cout << setw(12) << "Principal " << principal;
-  cout << setw(12) << "Interest Rate " << yir;
-  cout << setw(12) << "Years " << years;
-  cout << setw(12) << "Payment " << monthlyPayment;
-  cout << setw(1) << "|" << endl;
-
-  // Empty Line w/ proper spacing
-  cout << setw(1) << "|"; 
-  cout << setw(74) << "|" << endl;
-
-  // Table Headers Row 1
-  cout << setw(1) << "|";
-  cout << setw(10) << "Month";
-  cout << setw(10) << "Pay";
-  cout << setw(10) << "Total";
-  cout << setw(10) << "Monthly";
-  cout << setw(10) << "Principal";
-  cout << setw(10) << "Total";
-  cout << setw(10) << "Remaining";
-  cout << setw(4) << "|" << endl;
-
-  // Table Headers Row 2
-  cout << setw(1) << "|";
-  cout << setw(10) << "";
-  cout << setw(10) << "";
-  cout << setw(10) << "Paid";
-  cout << setw(10) << "Interest";
-  cout << setw(10) << "Paid";
-  cout << setw(10) << "Principal";
-  cout << setw(10) << "Balance";
-  cout << setw(1) << "|" << endl;
   
+  // Catch these scoped variables up in time to 9 months before the payment plan is complete
+  // Pretty cpu inefficient, but it gets the job done here
+  for(int i=1; i<=(years * 12) - 8; i++) {
+    totalPaid += monthlyPayment;
+    monthlyInterest = getMonthlyInterest(remainingBalance, yir);
+    principalPaid = monthlyPayment - monthlyInterest;
+    totalPrincipalPaid += principalPaid;
+    remainingBalance -= principalPaid;
+  }
+
+
+  // Same thing as printTopHalf's loop, except we're starting where the loop above ended
+  for(int i=(years * 12) - 7; i<=years * 12; i++) {
+    totalPaid += monthlyPayment;
+    monthlyInterest = getMonthlyInterest(remainingBalance, yir);
+    principalPaid = monthlyPayment - monthlyInterest;
+    totalPrincipalPaid += principalPaid;
+    remainingBalance -= principalPaid;
+    
+    cout << setw(1) << "|";
+    cout << setw(5) << i;
+    cout<< setw(12) << monthlyPayment;
+    cout << setw(12) << totalPaid; 
+    cout << setw(12) << monthlyInterest; 
+    cout << setw(12) << principalPaid;
+    cout << setw(12) << totalPrincipalPaid;
+    cout << setw(12) << remainingBalance;
+    cout << setw(1) << " |\n";
+  }
+}
+
+void printTable(double principal, double yir, double years) {
+  cout << setprecision(2) << fixed;
+  double monthlyPayment = calculate(principal, yir, years);
+
+
+  cout << " ------------------------------------------------------------------------------";
+  cout << "\n|  Principal " << principal << "    Interest Rate " <<  yir << "     Years " << years << "     Payment " << monthlyPayment << " |";
+  cout << "\n|                                                                              |";
+
+  cout << "\n|  Month    Pay        Total       Monthly     Principal   Total    Reamining  |";
+  cout << "\n|                       Paid       Interest       Paid    Principal   Balance  |";
+  cout << "\n|                                                           Paid               |";
+
+  cout << "\n|                                                                              |\n";
   printFirstEight(principal, yir, years);
   cout << "|    -         -           -             -           -         -          -    |\n";
-  // printLastEight(principal, yir, years);
+  printLastEight(principal, yir, years);
   cout << " ------------------------------------------------------------------------------";
 }
 
 int main() {
-  double principal = 70000, yir = 9.5, years = 30;
+  double principal, yir, years;
 
-  // cout << "Please enter the Principal: ";
-  // cin >> principal;
-  // cout << "Please enter the Yearly Interest Rate, in decimal format: ";
-  // cin >> yir;
-  // cout << "Please enter the loan length, in years: ";
-  // cin >> years;
+  cout << "Please enter the Principal: ";
+  cin >> principal;
+  cout << "Please enter the Yearly Interest Rate, in decimal format: ";
+  cin >> yir;
+  cout << "Please enter the loan length, in years: ";
+  cin >> years;
+
+  double monthlyPayment = calculate(principal, yir, years);
+
 
   printTable(principal, yir, years);
 }
