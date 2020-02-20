@@ -47,17 +47,12 @@ void printFirstEight(double principal, double yir, double years) {
   double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
   double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
 
-  // All numbers get cut off after 2 decimals, rounded up
-  cout << setprecision(2) << fixed;
-
   for(int i=1; i<=8; i++) {
     totalPaid += monthlyPayment;
     monthlyInterest = getMonthlyInterest(remainingBalance, yir);
     principalPaid = monthlyPayment - monthlyInterest;
     totalPrincipalPaid += principalPaid;
     remainingBalance -= principalPaid;
-
-
     
     cout << setw(1) << "|";
     cout << setw(5) << i;
@@ -74,12 +69,9 @@ void printFirstEight(double principal, double yir, double years) {
 // Print last eight months of the payment plan to table
 void printLastEight(double principal, double yir, double years) {
   double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
-  double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
+  double totalPaid, monthlyInterest, principalPaid;
+  double totalPrincipalPaid, remainingBalance = principal;
 
-  cout << setprecision(2) << fixed;
-  
-  // Catch these scoped variables up in time to 9 months before the payment plan is complete
-  // Pretty cpu inefficient, but it gets the job done here
   for(int i=1; i<=(years * 12) - 8; i++) {
     totalPaid += monthlyPayment;
     monthlyInterest = getMonthlyInterest(remainingBalance, yir);
