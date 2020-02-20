@@ -70,7 +70,7 @@ void printFirstEight(double principal, double yir, double years) {
 }
 
 void printTable(double principal, double yir, double years) {
-  string dashBar = " -------------------------------------------------------------------------------------------------- ";
+  string dashBar = " ------------------------------------------------------------------------- ";
   double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
 
   cout << setprecision(2) << fixed;
@@ -79,11 +79,13 @@ void printTable(double principal, double yir, double years) {
   // Top table info
   cout << dashBar << endl;
   cout << setw(1) << "|";
-  cout << setw(20) << "Principal " << principal;
-  cout << setw(20) << "Interest Rate " << yir;
-  cout << setw(15) << "Years " << years;
-  cout << setw(15) << "Payment " << monthlyPayment;
-  cout << setw(6) << "|" << endl;
+  cout << setw(12) << "Principal " << principal;
+  cout << setw(12) << "Interest Rate " << yir;
+  cout << setw(12) << "Years " << years;
+  cout << setw(12) << "Payment " << monthlyPayment;
+  cout << setw(1) << "|" << endl;
+
+  // Empty Line w/ proper spacing
   cout << setw(1) << "|"; 
   cout << setw(74) << "|" << endl;
 
@@ -109,14 +111,6 @@ void printTable(double principal, double yir, double years) {
   cout << setw(10) << "Balance";
   cout << setw(1) << "|" << endl;
   
-
-
-
-  cout << "\n|  Month    Pay        Total       Monthly     Principal   Total    Reamining  |";
-  cout << "\n|                       Paid       Interest       Paid    Principal   Balance  |";
-  cout << "\n|                                                           Paid               |";
-
-  cout << "\n|                                                                              |\n";
   printFirstEight(principal, yir, years);
   cout << "|    -         -           -             -           -         -          -    |\n";
   // printLastEight(principal, yir, years);
