@@ -44,7 +44,7 @@ double getMonthlyInterest(double remainingBalance, double yir) {
 
 // Print first eight months of the payment plan to table
 void printFirstEight(double principal, double yir, double years) {
-  double monthlyPayment = calculate(principal, yir, years);
+  double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
   double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
 
   // All numbers get cut off after 2 decimals, rounded up
@@ -73,7 +73,7 @@ void printFirstEight(double principal, double yir, double years) {
 
 // Print last eight months of the payment plan to table
 void printLastEight(double principal, double yir, double years) {
-  double monthlyPayment = calculate(principal, yir, years);
+  double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
   double totalPaid, monthlyInterest, principalPaid, totalPrincipalPaid, remainingBalance = principal;
 
   cout << setprecision(2) << fixed;
@@ -111,7 +111,7 @@ void printLastEight(double principal, double yir, double years) {
 
 void printTable(double principal, double yir, double years) {
   cout << setprecision(2) << fixed;
-  double monthlyPayment = calculate(principal, yir, years);
+  double monthlyPayment = calculateMonthlyPayment(principal, yir, years);
 
 
   cout << " ------------------------------------------------------------------------------";
@@ -123,8 +123,11 @@ void printTable(double principal, double yir, double years) {
   cout << "\n|                                                           Paid               |";
 
   cout << "\n|                                                                              |\n";
+  // Print first eight months of payments 
   printFirstEight(principal, yir, years);
   cout << "|    -         -           -             -           -         -          -    |\n";
+
+  // Print last eight months of payments
   printLastEight(principal, yir, years);
   cout << " ------------------------------------------------------------------------------";
 }
@@ -132,15 +135,14 @@ void printTable(double principal, double yir, double years) {
 int main() {
   double principal, yir, years;
 
-  cout << "Please enter the Principal: ";
+  cout << "Enter the principal: ";
   cin >> principal;
-  cout << "Please enter the Yearly Interest Rate, in decimal format: ";
+  cout << "Enter the yearly interest rate (in decimal format): ";
   cin >> yir;
-  cout << "Please enter the loan length, in years: ";
+  cout << "Enter the loan length (in years): ";
   cin >> years;
 
-  double monthlyPayment = calculate(principal, yir, years);
-
-
   printTable(principal, yir, years);
+
+  return 0;
 }
