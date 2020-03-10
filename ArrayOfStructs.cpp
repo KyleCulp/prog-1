@@ -7,7 +7,11 @@
 
 #include <iostream>
 #include <string>
-#include <iomanip> 
+#include <iomanip>
+#include <fstream>
+#include <vector> 
+#include <cctype>
+#include <cstdlib> 
 using namespace std;
 
 // Person Struct with 5 Fields
@@ -20,7 +24,7 @@ struct Person {
 
 Person People[12];
 
-void fillArray(int dataSize) {
+void fillArrays(int dataSize) {
 	for(int i; i < dataSize; i++) {
 		People[i].first_name = Data[i][0];
 		People[i].last_name = Data[i][1];
@@ -93,22 +97,57 @@ void sortArrayByLastName(int dataSize) {
 
 
 int main () {
-	// Get Amount of Rows in 2D array
-	int dataSize = sizeof Data / sizeof Data[0];
-	// Fill Array of Structs with test data
-	fillArray(dataSize);
-	// Print Unsorted Array
-	printArray(dataSize);
+	// Get file's line count
+	int fileSize = 0;
+	ifstream in("data.txt");
+  // Arg filler, blank
+	string hold; 
+	while(getline(in, hold)) {
+		fileSize++;
+	}
 
-	// Sort Array by Age, ascending order
-	sortArrayByAge(dataSize);
-	// Print Sorted Array
-	printArray(dataSize);
+  int dataSize = fileSize / 4;
 
-	// Sort Array by Last Name, descending order
-    sortArrayByLastName(dataSize);
-	// Print Sorted Array
-	printArray(dataSize);
+  // Read in file, creating Albums and filling
+	// a vector of Album's to sort and manipulate
+	ifstream songsFile; // open the input file
+	songsFile.open("data.txt");
+  int loopTracker = 0;
+
+  for(string line; getline(songsFile, line); loopTracker++) {
+		cout << line << endl;
+    switch(loopTracker % 4) {
+      case 0: {
+
+      }
+      case 1: {
+
+      }
+      case 2: {
+
+      }
+      case 3: {
+
+      }
+    }
+	}
+
+	songsFile.close();
+
+	// // Fill Array of Structs with test data
+	// fillArrays(dataSize);
+	// // Print Unsorted Array
+	// printArray(dataSize);
+
+	// // Sort Array by Age, ascending order
+	// sortArrayByAge(dataSize);
+	// // Print Sorted Array
+	// printArray(dataSize);
+
+	// // Sort Array by Last Name, descending order
+  //   sortArrayByLastName(dataSize);
+	// // Print Sorted Array
+	// printArray(dataSize);
 
 	return 0;
 }
