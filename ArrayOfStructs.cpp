@@ -14,7 +14,10 @@
 #include <cstdlib> 
 using namespace std;
 
-// Person Struct with 5 Fields
+// 2D Array to hold data easier
+string Data[11][4];
+
+// Person struct with 4 Fields
 struct Person {
 	string name;
 	string gender;
@@ -22,15 +25,30 @@ struct Person {
 	string height;
 };
 
+// Array of People structs
 Person People[12];
+
+void fillData() {
+  // declare file variable
+	ifstream songsFile; 
+	songsFile.open("data.txt");
+  int loopTracker = 0;
+  for(string line; getline(songsFile, line); loopTracker++) {
+    // Every 4th line is a new Person
+    // Every number inbetween multiples of 4 is added to the 2nd
+    // Dimension of the array
+    Data[loopTracker / 4][loopTracker % 4] = line;
+	}
+
+	songsFile.close();
+}
 
 void fillArrays(int dataSize) {
 	for(int i; i < dataSize; i++) {
-		People[i].first_name = Data[i][0];
-		People[i].last_name = Data[i][1];
-		People[i].gender = Data[i][2];
-		People[i].age = Data[i][3];
-		People[i].height = Data[i][4];
+		People[i].name = Data[i][0];
+		People[i].gender = Data[i][1];
+		People[i].age = Data[i][2];
+		People[i].height = Data[i][3];
 	}
 }
 
@@ -57,7 +75,7 @@ void printArray(int dataSize) {
 	cout << " ------------------------------------------------------\n";
 }
 
-
+// Sort ascending order by age
 void sortArrayByAge(int dataSize) {
 	for(int i = 1; i < dataSize; i++) {
 		for(int k = 0; k < dataSize - i; k++) {
@@ -77,6 +95,7 @@ void sortArrayByAge(int dataSize) {
 	}
 }
 
+// Sort descending order by name
 void sortArrayByLastName(int dataSize) {
 	for(int i = 1; i < dataSize; i++) {
 		for(int k = 0; k < dataSize - i; k++) {
@@ -95,59 +114,35 @@ void sortArrayByLastName(int dataSize) {
 	}
 }
 
-
 int main () {
-	// Get file's line count
-	int fileSize = 0;
+  fillData();
+
+  // Get file size
+  int fileSize = 0;
 	ifstream in("data.txt");
   // Arg filler, blank
 	string hold; 
 	while(getline(in, hold)) {
 		fileSize++;
 	}
+  // End file size getting
 
   int dataSize = fileSize / 4;
 
-  // Read in file, creating Albums and filling
-	// a vector of Album's to sort and manipulate
-	ifstream songsFile; // open the input file
-	songsFile.open("data.txt");
-  int loopTracker = 0;
+	// Fill Array of Structs with test data
+	fillArrays(dataSize);
+	// Print Unsorted Array
+	printArray(dataSize);
 
-  for(string line; getline(songsFile, line); loopTracker++) {
-		cout << line << endl;
-    switch(loopTracker % 4) {
-      case 0: {
+	// Sort Array by Age, Ascending Order
+	sortArrayByAge(dataSize);
+	// Print Sorted by Ascending Order Array
+	printArray(dataSize);
 
-      }
-      case 1: {
-
-      }
-      case 2: {
-
-      }
-      case 3: {
-
-      }
-    }
-	}
-
-	songsFile.close();
-
-	// // Fill Array of Structs with test data
-	// fillArrays(dataSize);
-	// // Print Unsorted Array
-	// printArray(dataSize);
-
-	// // Sort Array by Age, ascending order
-	// sortArrayByAge(dataSize);
-	// // Print Sorted Array
-	// printArray(dataSize);
-
-	// // Sort Array by Last Name, descending order
-  //   sortArrayByLastName(dataSize);
-	// // Print Sorted Array
-	// printArray(dataSize);
+	// Sort Array by Name, Descending Order
+  sortArrayByLastName(dataSize);
+	// Print Sorted by Descending Order Array
+	printArray(dataSize);
 
 	return 0;
 }
