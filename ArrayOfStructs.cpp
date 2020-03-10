@@ -8,9 +8,6 @@
 #include <string>
 #include <iomanip>
 #include <fstream>
-#include <vector> 
-#include <cctype>
-#include <cstdlib> 
 using namespace std;
 
 // 2D Array to hold data easier
