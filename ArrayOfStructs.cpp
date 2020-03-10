@@ -2,8 +2,7 @@
 // Programming 1
 // Due: 3/10/2020
 // Sort an Array of Structs 
-// Get the monthly payment cost for a loan by providing
-// the principal, yearly interest rate, and the loan length
+// Read in data from a file, put it in an array of structs, and sort said array
 
 #include <iostream>
 #include <string>
